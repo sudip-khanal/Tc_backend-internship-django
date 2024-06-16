@@ -1,37 +1,36 @@
-Create Author Entries
 
-# import models from the app to perform different operations using shell-plus
+### import models from the app to perform different operations using shell-plus
 
 from apps.school.models import Author
 
-# Creating authors objects
+### Creating authors objects
 
 Author.objects.create(name='samiksha khadka')
 Author.objects.create(name='sudip khanal')
 
-# Querying all authors
+### Querying all authors
 
 authors = Author.objects.all()
 print(authors)
 
-# Output
+### Output
 
 <QuerySet [<Author: samiksha khadka>, <Author: sudip khanal>]>
 
-# Get Author by Name
+### Get Author by Name
 
 id_samiksha = Author.objects.get(name='samiksha khadka')
 print(id_samiksha)
 
-# Output
+### Output
 
 samiksha khadka
 
-# Create Book Entries
+### Create Book Entries
 
 from apps.school.models import Book
 
-# Creating books
+### Creating books
 
 book = Book.objects.create(
 name='two scoop of django',
@@ -51,27 +50,27 @@ pages=1000
 )
 book3.save()
 
-# Querying all books
+### Querying all books
 
 books = Book.objects.all()
 print(books)
 
-# Output
+### Output
 
 <QuerySet [<Book: two scoop of django>, <Book: django for everyone>]>
 
-# Create Student Entries
+### Create Student Entries
 
 from apps.school.models import Student
 
-# Creating students
+### Creating students
 
 Student.objects.create(full_name='sandesh thapa', roll_no=1, grade='12')
 Student.objects.create(full_name='kashyap ghimire', roll_no=2, grade='11')
 
 from apps.school.models import Course, Student
 
-# Creating courses and assigning students
+### Creating courses and assigning students
 
 course1 = Course.objects.create(name='CS')
 student1 = Student.objects.get(full_name='sandesh thapa')
@@ -81,42 +80,42 @@ course2 = Course.objects.create(name='CSIT')
 student2 = Student.objects.get(full_name='kashyap ghimire')
 course2.student.add(student2)
 
-# Querying all courses
+### Querying all courses
 
 courses = Course.objects.all()
 print(courses)
 
-# Output
+### Output
 
 <QuerySet [<Course: CS>, <Course: CSIT>]>
 
-# Filter Courses by Name
+### Filter Courses by Name
 
 cs_courses = Course.objects.filter(name='CS')
 print(cs_courses)
 
-# output
+### output
 
 <QuerySet [<Course: CS>]>
 
-# Using select_related to get books with authors
+### Using select_related to get books with authors
 
 books_with_authors = Book.objects.select_related('author')
 for b in books_with_authors:
 print(b)
 
-# Output
+### Output
 
 two scoop of django
 django for everyone
 
-# Using prefetch_related to get courses with students
+### Using prefetch_related to get courses with students
 
 courses_with_students = Course.objects.prefetch_related('student')
 for course in courses_with_students:
 print(course, course.student.all())
 
-# output
+### output
 
 CS school.Student.None <QuerySet [<Student: sandesh thapa>]>
 CSIT school.Student.None <QuerySet [<Student: kashyap ghimire>]>
